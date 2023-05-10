@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <title>Laravel</title>
 
     <!-- Fonts -->
@@ -34,64 +34,56 @@
             position: relative;
         }
 
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
         .content {
             text-align: center;
+        }
+
+        {
+            margin-left: 20px;
         }
 
         .title {
             font-size: 84px;
         }
 
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
         .m-b-md {
             margin-bottom: 30px;
+        }
+
+        #login_button
+        {
+            margin-right: 3%;
+        }
+
+        #register_button
+        {
+            margin-left: 3%;
         }
     </style>
 </head>
 <body>
 <div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ url('/dashboard') }}">Dashboard</a>
-            @else
-                <a href="{{ route('login') }}">Login</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}">Register</a>
-                @endif
-            @endauth
-        </div>
-    @endif
 
     <div class="content">
         <div class="title m-b-md">
             aWMSome
         </div>
 
-        <div class="links">
-            <a href="https://laravel.com/docs">Docs</a>
-            <a href="https://laracasts.com">Laracasts</a>
-            <a href="https://laravel-news.com">News</a>
-            <a href="https://blog.laravel.com">Blog</a>
-            <a href="https://nova.laravel.com">Nova</a>
-            <a href="https://forge.laravel.com">Forge</a>
-            <a href="https://github.com/laravel/laravel">GitHub</a>
+        <div class="buttons">
+            @if (Route::has('login'))
+                <div>
+                    @auth
+                        <button id="dashboard_button" type="button" class="btn btn-dark" onclick="window.location='{{ route('dashboard') }}'">Dashboard</button>
+{{--                        <a href="{{ url('/dashboard') }}">Dashboard</a>--}}
+                    @else
+                        <button id="login_button" type="button" class="btn btn-dark" onclick="window.location='{{ route('login') }}'">Login</button>
+{{--                        <a href="{{ route('login') }}">Login</a>--}}
+                        @if (Route::has('register'))
+                            <button id="register_button" type="button" class="btn btn-dark" onclick="window.location='{{ route('register') }}'">Register</button>
+                        @endif
+                    @endauth
+                </div>
+            @endif
         </div>
     </div>
 </div>

@@ -1,0 +1,9 @@
+.nav-pills li a:hover
+{
+    background-color: darkgray;
+}
+
+.col-auto
+{
+    width: 15vw;
+}
