@@ -5,11 +5,11 @@ namespace App\Onion\Entities;
 class document
 {
     public $id;
-    public $document_number;
-    public $document_type;
-    public $document_state;
+    public $number;
+    public $type_id;
+    public $state_id;
     public $document_date;
-    public $warehouse_source;
-    public $warehouse_destination;
-
+    public $warehouse_source_id;
+    public $warehouse_destination_id;
+    public $user_realizer_id;
 }
