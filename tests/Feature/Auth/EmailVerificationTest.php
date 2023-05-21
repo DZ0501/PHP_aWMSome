@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Onion\Entities\user;
-use App\Providers\RouteServiceProvider;
+use App\Core\Providers\RouteServiceProvider;
+use App\Domain\Models\user;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;

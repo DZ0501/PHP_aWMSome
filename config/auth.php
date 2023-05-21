@@ -62,7 +62,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Onion\Entities\user::class,
+            'model' => \App\Domain\Models\user::class,
         ],
 
         // 'users' => [

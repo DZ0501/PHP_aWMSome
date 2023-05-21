@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Onion\Entities\user;
+use App\Domain\Models\user;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;

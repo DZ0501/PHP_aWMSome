@@ -3,7 +3,52 @@
     background-color: darkgray;
 }
 
+.nav-pills li a:active
+{
+    background-color:  dimgray;
+}
+
 .col-auto
 {
     width: 15vw;
 }
+
+.bg-secondary
+{
+    background-color: lightgray !important;
+}
+
+.bg-dark
+{
+    background-color: #1c1c1c !important;
+}
+
+.row
+{
+    max-width: 15vw !important;
+}
+
+main
+{
+    text-align: center;
+    width: 85vw !important;
+    max-width: none !important;
+    line-height: 100vh;
+    /*background: url("../warehouse.png") no-repeat center center fixed;*/
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    /*background-size: cover;*/
+
+    /*padding-left: 0px !important;*/
+
+}
+
+/*#animation*/
+/*{*/
+/*    background-color: #1c1c1c;*/
+/*    height: 100vh !important;*/
+/*    width: 100% !important;*/
+/*    animation-name: example;*/
+/*    animation-duration: 2s;*/
+/*}*/

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Onion\Entities\user;
+use App\Domain\Models\user;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

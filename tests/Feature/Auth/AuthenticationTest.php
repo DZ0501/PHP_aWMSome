@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Onion\Entities\user;
-use App\Providers\RouteServiceProvider;
+use App\Core\Providers\RouteServiceProvider;
+use App\Domain\Models\user;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

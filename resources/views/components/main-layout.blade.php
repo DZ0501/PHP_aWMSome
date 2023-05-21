@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +8,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    {{--    Bootstrap--}}
+    {{-- Bootstrap--}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -19,21 +20,23 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
-    {{--    CSS--}}
+    {{-- CSS--}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
 </head>
 
 <body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-screen bg-secondary">
 
     <div class="container-fluid">
-        <div class="row flex-nowrap">
+        <div class="row flex-nowrap max">
             <div class="bg-dark col-auto col-lg-2 min-vh-100 d-flex flex-column justify-content-between">
                 <div class="bg-dark p-2">
                     <a class="d-flex text-decoration-none mt-3 align-items-center text-white">
                         <div>
-                            <span class="fs-3 d-none d-sm-inline">aWMSome</span>
+                            <a class="text-decoration-none text-white" href="{{ route('dashboard') }}">
+                                <span class="fs-3 d-none d-sm-inline">aWMSome</span>
+                            </a>
                         </div>
                     </a>
                     <ul class="nav nav-pills flex-column mt-5 pt-5">
@@ -78,20 +81,13 @@
                     </ul>
                 </div>
             </div>
+
+            <main>
+                {{ $slot }}
+            </main>
+
         </div>
     </div>
-
-    {{--    @include('layouts.navigation')--}}
-
-
-
-
-    {{--    <main>--}}
-    {{--        {{ $slot }}--}}
-    {{--    </main>--}}
-
-
 </div>
-
 </body>
 </html>
