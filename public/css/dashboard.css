@@ -28,12 +28,13 @@
     max-width: 15vw !important;
 }
 
-main
+#main_content
 {
     text-align: center;
     width: 85vw !important;
     max-width: none !important;
-    line-height: 100vh;
+    margin-top: 25%;
+    /*line-height: 100vh;*/
     /*background: url("../warehouse.png") no-repeat center center fixed;*/
     /*-webkit-background-size: cover;*/
     /*-moz-background-size: cover;*/
@@ -41,7 +42,17 @@ main
     /*background-size: cover;*/
 
     /*padding-left: 0px !important;*/
+}
 
+.btn
+{
+    /*margin-left: 25% !important;*/
+    /*margin-right: 55% !important;*/
+}
+
+form
+{
+    margin-left: 1% !important;
 }
 
 /*#animation*/

@@ -2,6 +2,7 @@
 
 use App\Core\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Core\Controllers\Frontend;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +19,25 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::redirect('/', destination: 'login');
+Route::redirect('/', destination: '/login');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Admin routes
+Route::Get('/dashboard_admin', [Frontend\Admin\DashboardController::class, 'index']) -> middleware('role:2')->name('dashboard_admin');
+Route::Get('/user_panel', [Frontend\Admin\UserPanelController::class, 'index']) -> middleware('role:2')->name('user_panel');
 
-Route::middleware('auth')->group(function () {
+
+
+
+Route::Get('/dashboard_authorized', [Frontend\Authorized\DashboardController::class, 'index']) -> middleware('role:1')->name('dashboard_authorized');
+
+
+//Route::get('/dashboard', function ()
+//{
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function ()
+{
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

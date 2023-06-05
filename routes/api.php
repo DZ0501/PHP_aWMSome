@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('user') -> group(function() {
+Route::prefix('user') -> group(function()
+{
     Route::Get('/show_all', [UserController::class, 'index']);
     Route::Get('/show/{id}', [UserController::class, 'show']);
     Route::Post('/create', [UserController::class, 'store']);
+    Route::delete('/delete/{id}', [UserController::class, 'delete']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

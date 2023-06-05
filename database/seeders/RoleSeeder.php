@@ -15,8 +15,7 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
 
-        role::factory(3)->state(new Sequence(
-            ['name' => 'guest'],
+        role::factory(2)->state(new Sequence(
             ['name' => 'authorized'],
             ['name' => 'admin'],
         ))->create();

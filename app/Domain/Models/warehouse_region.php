@@ -2,10 +2,13 @@
 
 namespace App\Domain\Models;
 
-class warehouse_region
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class warehouse_region extends Model
 {
-    public $id;
-    public $warehouse_id;
-    public $code;
-    public $description;
+    public $timestamps = false;
+
+    use HasFactory;
+
 }

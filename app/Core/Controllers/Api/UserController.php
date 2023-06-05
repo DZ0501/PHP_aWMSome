@@ -20,14 +20,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(UserRequest $request)
@@ -49,6 +41,20 @@ class UserController extends Controller
     {
         $user = user::find($id);
         return UserResource::make($user);
+    }
+
+    public function delete($id)
+    {
+        $user = user::find($id);
+        if ($user)
+        {
+            $user->delete();
+            return redirect('/user_panel');
+        }
+        else
+        {
+            return dd("nie udało się usunąć użytkownika.");
+        }
     }
 
     /**
