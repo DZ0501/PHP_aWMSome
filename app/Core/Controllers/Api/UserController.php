@@ -5,12 +5,15 @@ namespace App\Core\Controllers\Api;
 use App\Core\Controllers\Controller;
 use App\Domain\Models\user;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -24,14 +27,25 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-       $user = user::create([
-           'email' => $request->email,
-           'name' => $request->name,
-           'role_id' => $request->role_id,
-           'password' => Hash::make($request->password)
-       ], $request->validated());
+        try {
+            $user = User::create([
+                'email' => $request->email,
+                'name' => $request->name,
+                'role_id' => $request->role_id,
+                'password' => Hash::make($request->password)
+            ]);
 
-       return UserResource::make($user);
+            return UserResource::make($user);
+
+        } catch (\Exception $e) {
+
+            if ($e->getCode() === '23000') {
+                return response()->json(['error' => 'Email already exists.'], 422);
+            }
+
+            // Handle other exceptions
+            return response()->json(['error' => 'Something went wrong.'], 500);
+        }
     }
 
     /**
@@ -39,45 +53,46 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = user::find($id);
-        return UserResource::make($user);
+        try {
+            $user = user::findOrFail($id);
+
+            if (!$user) {
+                return response()->json(['error' => 'User not found.'], 404);
+            }
+            return UserResource::make($user);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => 'User was not found.']);
+        }
     }
 
-    public function delete($id)
+    public function delete(user $user)
     {
-        $user = user::find($id);
-        if ($user)
-        {
+        try {
             $user->delete();
-            return redirect('/user_panel');
+        } catch (\Throwable $e) {
+            return \response($e->getMessage());
         }
-        else
-        {
-            return dd("nie udało się usunąć użytkownika.");
-        }
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(user $user)
-    {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, user $user)
+    public function update(UserUpdateRequest $request, user $user)
     {
-        //
+        try {
+//           \Log::info(json_encode($request->all()));
+            $user->update(
+                [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'role_id' => $request->role_id,
+                ]);
+            return response()->json(['User information updated.']);
+        } catch (\Throwable $e) {
+            return \response($e->getMessage());
+        }
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(user $user)
-    {
-        //
-    }
 }

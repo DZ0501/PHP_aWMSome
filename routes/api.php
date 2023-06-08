@@ -1,5 +1,5 @@
 <?php
-
+use App\Core\Controllers\Api\WarehouseController;
 use App\Core\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +20,17 @@ Route::prefix('user') -> group(function()
     Route::Get('/show_all', [UserController::class, 'index']);
     Route::Get('/show/{id}', [UserController::class, 'show']);
     Route::Post('/create', [UserController::class, 'store']);
-    Route::delete('/delete/{id}', [UserController::class, 'delete']);
+    Route::patch('//update/{user:id}', [UserController::class, 'update']);
+    Route::delete('/delete/{user:id}', [UserController::class, 'delete']);
+});
+
+Route::prefix('warehouse') -> group(function()
+{
+    Route::Get('/show_all', [WarehouseController::class, 'index']);
+    Route::Get('/show/{id}', [WarehouseController::class, 'show']);
+    Route::Post('/create', [WarehouseController::class, 'store']);
+    Route::patch('//update/{warehouse:id}', [WarehouseController::class, 'update']);
+    Route::delete('/delete/{warehouse:id}', [WarehouseController::class, 'delete']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

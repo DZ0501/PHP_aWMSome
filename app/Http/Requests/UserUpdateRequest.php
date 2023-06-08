@@ -6,7 +6,7 @@ use App\Domain\Models\user;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UserRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class UserRequest extends FormRequest
         return [
             'role_id' => 'required|numeric|min:1|max:2|',
             'name' => 'required|string|max:20',
-            'email' => ['email', 'max:255', Rule::unique(user::class)],
-            'password' => 'required|min:5',
+            'email' => ['email', 'max:255', Rule::unique(user::class)->ignore($this->user->id)],
+            'password' => 'nullable|min:5',
         ];
     }
 }

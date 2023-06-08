@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('description')->nullable();
-            $table->boolean('is_active')->default(1);
+            $table->enum('is_active', [0,1])->default(1);
         });
     }
 

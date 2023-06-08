@@ -55,6 +55,11 @@ form
     margin-left: 1% !important;
 }
 
+a
+{
+color: black !important;
+}
+
 /*#animation*/
 /*{*/
 /*    background-color: #1c1c1c;*/

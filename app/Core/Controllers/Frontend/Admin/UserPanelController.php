@@ -11,6 +11,6 @@ class UserPanelController extends Controller {
     }
     public function index()
     {
-        return view('admin.user_panel', ['listItems' => user::all()]);
+        return view('admin.user_panel', ['Users' => user::paginate(10)]);
     }
 }

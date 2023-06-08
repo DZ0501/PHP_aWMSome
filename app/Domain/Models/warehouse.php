@@ -10,4 +10,10 @@ class warehouse extends Model
     public $timestamps = false;
 
     use HasFactory;
+
+    protected $fillable = [
+        'code',
+        'description',
+        'is_active',
+    ];
 }

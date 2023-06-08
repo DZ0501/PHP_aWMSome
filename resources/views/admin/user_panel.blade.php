@@ -1,56 +1,4 @@
-@extends('.layouts/layout')
-
-@section('navbar')
-    <div class="bg-dark p-2">
-        <a class="d-flex text-decoration-none mt-3 align-items-center text-white">
-            <div>
-                <a class="text-decoration-none text-white" href="{{ route('dashboard_admin') }}">
-                    <span class="fs-3 d-none d-sm-inline">aWMSome</span>
-                </a>
-            </div>
-        </a>
-        <ul class="nav nav-pills flex-column mt-5 pt-5">
-            <li class="nav-item py-2 py-sm-0">
-                <a href="#" class="nav-link text-white">
-                    <i class="bi bi-stack"></i><span class="fs-5 ms-2 d-none d-sm-inline">Articles</span>
-                </a>
-            </li>
-            <li class="nav-item py-2 py-sm-0">
-                <a href="#" class="nav-link text-white">
-                    <i class="fs-5 bi bi-file-text-fill"></i><span class="fs-5 ms-2 d-none d-sm-inline">Documents</span>
-                </a>
-            </li>
-            <li class="nav-item py-2 py-sm-0">
-                <a href="#" class="nav-link text-white">
-                    <i class="fs-5 bi bi-box2-fill"></i><span
-                        class="fs-5 ms-2 d-none d-sm-inline">Stocks</span>
-                </a>
-            </li>
-            <li class="nav-item py-2 py-sm-0 dropdown">
-                <a class="nav-link text-white dropdown-toggle fs-5" href="#" role="button"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-geo-alt-fill"></i><span
-                        class="fs-5 ms-2 d-none d-sm-inline">Warehouse</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Type</a></li>
-                    <li><a class="dropdown-item" href="#">Localization</a></li>
-                </ul>
-            </li>
-            <li class="nav-item py-2 py-sm-0 dropdown">
-                <a class="nav-link text-white dropdown-toggle fs-5" href="#" role="button"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-boxes"></i><span
-                        class="fs-5 ms-2 d-none d-sm-inline">Admin</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">User panel</a></li>
-                    <li><a class="dropdown-item" href="#">Warehouse panel</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-@stop
+@extends('.layouts/layout_admin')
 
 @section('main_content')
     <table class="table">
@@ -62,21 +10,23 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($listItems as $listItem)
+        @auth()
+        @foreach($Users as $User)
             <tr>
-                <td>{{$listItem->id}}</td>
-                <td>{{$listItem->name}}</td>
+                <td>{{$User->id}}</td>
+                <td>{{$User->name}}</td>
                 <td class="justify-content-center d-flex">
-                    <form>
-                        <a href="{{ route('dashboard_admin') }}"><button type="button" class="btn btn-dark">Edit</button></a>
+                    <form method="GET" action="/user_panel/edit/{{$User->id}}">
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-dark" value="Edit">
                     </form>
 
-                    <form method="GET" action="/api/user/show/{{$listItem->id}}">
+                    <form method="GET" action="/user_panel/examine/{{$User->id}}">
                         {{ csrf_field() }}
                         <input type="submit" class="btn btn-dark" value="Examine">
                     </form>
 
-                    <form method="POST" action="/api/user/delete/{{$listItem->id}}">
+                    <form method="POST" action="/user_panel/delete/{{$User->id}}">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <input type="submit" class="btn btn-dark" value="Delete">
@@ -84,7 +34,12 @@
                 </td>
             </tr>
         @endforeach
+        @endauth
         </tbody>
     </table>
+
+    <div class="w-100 d-inline-flex justify-content-center">
+    {{$Users->links('pagination::simple-bootstrap-5')}}
+    </div>
 
 @stop

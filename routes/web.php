@@ -22,13 +22,24 @@ use App\Core\Controllers\Frontend;
 Route::redirect('/', destination: '/login');
 
 //Admin routes
-Route::Get('/dashboard_admin', [Frontend\Admin\DashboardController::class, 'index']) -> middleware('role:2')->name('dashboard_admin');
-Route::Get('/user_panel', [Frontend\Admin\UserPanelController::class, 'index']) -> middleware('role:2')->name('user_panel');
+Route::middleware('role:2')->group(function ()
+{
+    Route::Get('/dashboard_admin', [Frontend\Admin\DashboardController::class, 'index']) ->name('dashboard_admin');
+    Route::Get('/user_panel', [Frontend\Admin\UserPanelController::class, 'index']) -> name('user_panel');
+
+    Route::Get('/user_panel/edit/{user:id}', [Frontend\UserController::class, 'edit']);
+    Route::patch('/user_panel/update/{user:id}', [Frontend\UserController::class, 'update']);
+    Route::Get('/user_panel/examine/{user:id}', [Frontend\UserController::class, 'show']);
+    Route::Delete('/user_panel/delete/{user:id}', [Frontend\UserController::class, 'delete']);
+});
+
+//Authorized user routes
+Route::middleware('role:1,2')->group(function ()
+{
+    Route::Get('/dashboard_authorized', [Frontend\Authorized\DashboardController::class, 'index']) ->name('dashboard_authorized');
+});
 
 
-
-
-Route::Get('/dashboard_authorized', [Frontend\Authorized\DashboardController::class, 'index']) -> middleware('role:1')->name('dashboard_authorized');
 
 
 //Route::get('/dashboard', function ()
