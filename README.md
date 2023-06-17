@@ -42,37 +42,37 @@ This application is simple university project which supposed to be WMS at first 
 ![Example Image](1.png)
 
 http://localhost:8000/api/user/show/1 - Show details of user with id equal to 1
-http://localhost:8000/api/user/create - Create user: 
-{
+<br>http://localhost:8000/api/user/create - Create user: 
+<br>{
     "name": "Test",
     "email": "test@gmail.testtest",
     "password": "tetetet"
 }
-http://localhost:8000/api/user/update/2 - Update details of user with id equal to 2:
-{
+<br>http://localhost:8000/api/user/update/2 - Update details of user with id equal to 2:
+<br>{
     "name": "Test_update",
     "email": "testupdate@gmail.com",
     "role_id": 2
 }
-http://localhost:8000/api/user/delete/2 - Delete user with id equal to 2
-http://localhost:8000/api/user/show_all - Show all users
+<br>http://localhost:8000/api/user/delete/2 - Delete user with id equal to 2
+<br>http://localhost:8000/api/user/show_all - Show all users
 
-http://localhost:8000/api/warehouse/show/1 - Show details of warehouse with id equal to 1
-http://localhost:8000/api/warehouse/create - Create warehouse:
-{
+<br>http://localhost:8000/api/warehouse/show/1 - Show details of warehouse with id equal to 1
+<br>http://localhost:8000/api/warehouse/create - Create warehouse:
+<br>{
     "code": "ACE",
     "description": ""
 }
-http://localhost:8000/api/warehouse/delete/2 - Delete warehouse with id equal to 2
-http://localhost:8000/api/warehouse/update/2 - Update details of warehouse with id equal to 2:
-{
+<br>http://localhost:8000/api/warehouse/delete/2 - Delete warehouse with id equal to 2
+<br>http://localhost:8000/api/warehouse/update/2 - Update details of warehouse with id equal to 2:
+<br>{
     "code": "TST",
     "description": "test",
     "is_active": 1
 }
-http://localhost:8000/api/warehouse/show_all - Show all warehouses
-http://localhost:8000/api/warehouse/assign - Assign warehouse to certain user
-{
+<br>http://localhost:8000/api/warehouse/show_all - Show all warehouses
+<br>http://localhost:8000/api/warehouse/assign - Assign warehouse to certain user
+<br>{
   "user_id": 1,
   "warehouse_id": 2
 }
