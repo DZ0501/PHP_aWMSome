@@ -37,9 +37,47 @@
 
 This application is simple university project which supposed to be WMS at first but then I decided that I will focus on IAM module and a little bit of WMS. It was supposed to implement Clean Onion Architecture which was really hard to achieve. I wanted to show possibilities of PHP and Laravel framework. I dropped it and started a new one based on my current experience becouse I made tons of mistake at the beginning. Enjoy
 
-## API routes
+## API
 
 ![Example Image](1.png)
+
+http://localhost:8000/api/user/show/1 - Show details of user with id equal to 1
+http://localhost:8000/api/user/create - Create user: 
+{
+    "name": "Test",
+    "email": "test@gmail.testtest",
+    "password": "tetetet"
+}
+http://localhost:8000/api/user/update/2 - Update details of user with id equal to 2:
+{
+    "name": "Test_update",
+    "email": "testupdate@gmail.com",
+    "role_id": 2
+}
+http://localhost:8000/api/user/delete/2 - Delete user with id equal to 2
+http://localhost:8000/api/user/show_all - Show all users
+
+http://localhost:8000/api/warehouse/show/1 - Show details of warehouse with id equal to 1
+http://localhost:8000/api/warehouse/create - Create warehouse:
+{
+    "code": "ACE",
+    "description": ""
+}
+http://localhost:8000/api/warehouse/delete/2 - Delete warehouse with id equal to 2
+http://localhost:8000/api/warehouse/update/2 - Update details of warehouse with id equal to 2:
+{
+    "code": "TST",
+    "description": "test",
+    "is_active": 1
+}
+http://localhost:8000/api/warehouse/show_all - Show all warehouses
+http://localhost:8000/api/warehouse/assign - Assign warehouse to certain user
+{
+  "user_id": 1,
+  "warehouse_id": 2
+}
+
+
 
 ## License
 
