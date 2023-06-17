@@ -33,6 +33,14 @@
 - Email: <br> Admin@gmail.com
 - Password: <br> Admin
 
+## About
+
+This application is simple university project which supposed to be WMS at first but then I decided that I will focus on IAM module and a little bit of WMS. It was supposed to implement Clean Onion Architecture which was really hard to achieve. I wanted to show possibilities of PHP and Laravel framework. I dropped it and started a new on based on my current experience becouse I made tons of mistake at the beginning. Enjoy
+
+## API routes
+
+![Example Image](1.png)
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
