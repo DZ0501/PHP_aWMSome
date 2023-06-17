@@ -24,9 +24,9 @@ class WarehouseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required','string', 'min:3','max:3',Rule::unique(warehouse::class)],
+            'code' => ['required','string', 'min:3','max:3',Rule::unique(warehouse::class)->ignore($this->warehouse->id)],
             'description' => 'string|nullable',
-            'is_active' => ['numeric','min:0','max:1']
+            'is_active' => 'boolean'
         ];
     }
 }

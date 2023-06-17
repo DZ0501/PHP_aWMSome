@@ -7,9 +7,9 @@ use App\Domain\Models\user;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
-use http\Env\Response;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Responses\ApiSuccessResponse;
+use App\Http\Responses\ApiErrorResponse;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -17,60 +17,51 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): ApiSuccessResponse|ApiErrorResponse
     {
-        return UserResource::collection(user::all());
+        try {
+            $users = UserResource::collection(user::all());
+            return new ApiSuccessResponse($users, ['message' => 'Users listed successfully.']);
+        } catch (Throwable $e) {
+            return new ApiErrorResponse($e, ['message' => 'Users were not listed.']);
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
+    public function store(UserRequest $request): ApiSuccessResponse|ApiErrorResponse
     {
         try {
-            $user = User::create([
-                'email' => $request->email,
-                'name' => $request->name,
-                'role_id' => $request->role_id,
-                'password' => Hash::make($request->password)
-            ]);
-
-            return UserResource::make($user);
-
-        } catch (\Exception $e) {
-
-            if ($e->getCode() === '23000') {
-                return response()->json(['error' => 'Email already exists.'], 422);
-            }
-
-            // Handle other exceptions
-            return response()->json(['error' => 'Something went wrong.'], 500);
+            $user = User::create($request->only('email', 'name', 'password'));
+            return new ApiSuccessResponse(['id:' => $user->id, 'name' => $user->name, 'email' => $user->email, 'role_id' => $user->role_id ?? 1, 'warehouse_id' => $user->warehouse_id ?? 1], ['message' => 'User ' . $user->name . ' created.'], 201);
+        } catch (Throwable $e) {
+            return new ApiErrorResponse($e, ['message' => 'User not created.']);
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(user $user): ApiSuccessResponse|ApiErrorResponse
     {
         try {
-            $user = user::findOrFail($id);
-
-            if (!$user) {
-                return response()->json(['error' => 'User not found.'], 404);
-            }
-            return UserResource::make($user);
-        } catch (\Throwable $e) {
-            return response()->json(['error' => 'User was not found.']);
+            return new ApiSuccessResponse(['id:' => $user->id, 'name' => $user->name, 'email' => $user->email, 'role_id' => $user->role_id, 'warehouse_id' => $user->warehouse_id], ['message' => 'Data retrived successfully'],);
+        } catch (Throwable $e) {
+            return new ApiErrorResponse($e, ['message' => 'User not found.']);
         }
     }
 
-    public function delete(user $user)
+    /**
+     * Delete the specified resource.
+     */
+    public function delete(user $user): ApiSuccessResponse|ApiErrorResponse
     {
         try {
             $user->delete();
-        } catch (\Throwable $e) {
-            return \response($e->getMessage());
+            return new ApiSuccessResponse(['id:' => $user->id, 'name' => $user->name, 'email' => $user->email, 'role_id' => $user->role_id, 'warehouse_id' => $user->warehouse_id], ['message' => 'User deleted.']);
+        } catch (Throwable $e) {
+            return new ApiErrorResponse($e, ['message' => 'User not deleted.']);
         }
 
     }
@@ -81,16 +72,10 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, user $user)
     {
         try {
-//           \Log::info(json_encode($request->all()));
-            $user->update(
-                [
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'role_id' => $request->role_id,
-                ]);
-            return response()->json(['User information updated.']);
-        } catch (\Throwable $e) {
-            return \response($e->getMessage());
+            $user->update($request->only('name', 'email', 'role_id'));
+            return new ApiSuccessResponse(['id:' => $user->id, 'name' => $user->name, 'email' => $user->email, 'role_id' => $user->role_id, 'warehouse_id' => $user->warehouse_id], ['message' => 'User updated.'], 202);
+        } catch (Throwable $e) {
+            return new ApiErrorResponse($e, ['message' => 'User not updated']);
         }
 
     }

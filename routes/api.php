@@ -15,22 +15,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::resource('post', PostController::class);
+
 Route::prefix('user') -> group(function()
 {
     Route::Get('/show_all', [UserController::class, 'index']);
-    Route::Get('/show/{id}', [UserController::class, 'show']);
+    Route::Get('/show/{user:id}', [UserController::class, 'show']);
     Route::Post('/create', [UserController::class, 'store']);
-    Route::patch('//update/{user:id}', [UserController::class, 'update']);
+    Route::patch('/update/{user:id}', [UserController::class, 'update']);
     Route::delete('/delete/{user:id}', [UserController::class, 'delete']);
 });
 
 Route::prefix('warehouse') -> group(function()
 {
     Route::Get('/show_all', [WarehouseController::class, 'index']);
-    Route::Get('/show/{id}', [WarehouseController::class, 'show']);
+    Route::Get('/show/{warehouse:id}', [WarehouseController::class, 'show']);
     Route::Post('/create', [WarehouseController::class, 'store']);
-    Route::patch('//update/{warehouse:id}', [WarehouseController::class, 'update']);
+    Route::patch('/update/{warehouse:id}', [WarehouseController::class, 'update']);
     Route::delete('/delete/{warehouse:id}', [WarehouseController::class, 'delete']);
+
+    Route::Patch('/assign', [WarehouseController::class, 'assign']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
